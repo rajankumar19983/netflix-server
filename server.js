@@ -4,6 +4,7 @@ import cors from "cors";
 import ConfigDB from "./config/db.js";
 import http from "http";
 import { setupSocket } from "./config/socketSetup.js";
+import logRequest from "./app/middlewares/logger.js";
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(logRequest);
 
 const server = http.createServer(app);
 const { notifyUser } = setupSocket(server);
